@@ -9,14 +9,14 @@ const forecast = (latitude, longitude, callback) => {
     // f = Fahrenheit system
     // s = scientific system (Kelvin)
 
-    request({url: url, json: true}, (error, response) => {
+    request({ url, json: true}, (error, {body} ) => {
         if (error) {
             console.log('Unable to connect to weather service', undefined)
-        } else if (response.body.error) {
+        } else if (body.error) {
             console.log('Unable to find location', undefined)
         } else {
             callback(undefined,
-                'Weather condition: ' + response.body.current.weather_descriptions[0] + '.\nIt is currently ' + response.body.current.temperature + ' degrees Celsius out.\nIt feels like ' + response.body.current.feelslike + ' degrees Celsius out.'
+                'Weather condition: ' + body.current.weather_descriptions[0] + '.\nIt is currently ' + body.current.temperature + ' degrees Celsius out.\nIt feels like ' + body.current.feelslike + ' degrees Celsius out.'
                 )
         }
     })
